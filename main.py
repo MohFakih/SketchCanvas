@@ -6,7 +6,7 @@ clock = pygame.time.Clock()
 ColorPicked = (255, 0 ,0)
 DrawSize = 3
 pygame.draw.rect(screen, (255, 255, 255), [0, 0, width, height])
-pos1 = (0, 0)
+PreviousPos = (0, 0)
 while True:
     CursorPosition = pygame.mouse.get_pos()
     MouseClicked = pygame.mouse.get_pressed()
@@ -26,13 +26,14 @@ while True:
         DrawSize +=0.001
     if key[pygame.K_RIGHTBRACKET] and DrawSize>0:
         DrawSize -=0.001
-    if MouseClicked[0] == 1 and before == False:
-        before = True
-        pos1 = CursorPosition
-    elif MouseClicked[0] == 1 and before == True:
-        pygame.draw.line(screen, ColorPicked, pos1, CursorPosition, mt.floor(DrawSize))
-        pos1 = CursorPosition
+    if key[pygame.K_r]:
+        pygame.draw.rect(screen, (255, 255, 255), [0, 0, width, height])
+    if MouseClicked[0] == 1 and Pressed == False:
+        Pressed = True
+        PreviousPos = CursorPosition
+    elif MouseClicked[0] == 1 and Pressed == True:
+        pygame.draw.line(screen, ColorPicked, PreviousPos, CursorPosition, mt.floor(DrawSize))
+        PreviousPos = CursorPosition
     else:
-        before = False
-    print(DrawSize)
+        Pressed = False
     pygame.display.flip()
